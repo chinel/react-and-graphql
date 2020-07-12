@@ -26,7 +26,7 @@ const client = new ApolloClient({
 });
 
 
-client.query({
+/*client.query({
     query: gql`
     {
     getCollectionsByTitle(title: "hats"){
@@ -41,7 +41,14 @@ client.query({
     }
     }
     `
-}).then(res => console.log(res));
+}).then(res => console.log(res));*/
+
+client.writeData({
+    data:{
+        cartHidden: false
+    }
+});
+
 
 ReactDOM.render(
     <ApolloProvider client={client}>
