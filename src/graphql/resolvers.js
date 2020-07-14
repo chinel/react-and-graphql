@@ -15,9 +15,10 @@ const GET_CART_HIDDEN = gql`
 
 export const resolvers = {
   Mutation:{
-      toggleCartHidden: (_root, _args, {_context: {cache}}, _info) => {
-          // this comes back to us as a data object just as it is defined in the index.js file and we need to
-          const {data: {cartHidden}} = cache.readQuery({
+      //cache was destructured off the _context parameter
+      toggleCartHidden: (_root, _args /*{_context: {cache}}*/,{cache}, _info) => {
+          // this comes back to us as a data object just as it is defined in the index.js file and we need to destructure the cartHidden off the data Object
+          const /*{data: {cartHidden}}*/ {cartHidden} = cache.readQuery({
               query: GET_CART_HIDDEN/*,
               variables: {} If we want to pass in variables we can do that using the variables properties*/
           });
