@@ -1,5 +1,5 @@
 import {gql} from 'apollo-boost';
-import {addItemToCart} from '../redux/cart/cart.utils';
+import {addItemToCart, getCartItemCount} from '../redux/cart/cart.utils';
 
 //The extend type Item is extending the Item we have
 //on our backend graphql server and it is adding a quantity prop which might or may not be available
@@ -30,6 +30,12 @@ const GET_CART_ITEMS = gql`
 }
 `;
 
+const GET_ITEM_COUNT = gql `
+{
+   itemCount @client
+}
+`;
+
 
 export const resolvers = {
   Mutation:{
@@ -54,6 +60,11 @@ export const resolvers = {
 
           });
           const newCartItems = addItemToCart(cartItems, item);
+
+          cache.writeQuery({
+              query: GET_ITEM_COUNT,
+              data: {itemCount: getCartItemCount(newCartItems)}
+          })
           cache.writeQuery({
               query: GET_CART_ITEMS,
               data:{cartItems: newCartItems}

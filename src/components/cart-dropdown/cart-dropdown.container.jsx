@@ -29,9 +29,12 @@ export const CartDropdownContainer = () => (
           toggleCartHidden => (
               <Query query={GET_CART_ITEMS}>
                   {
-                      ({data:cartItems}) => (
-                          <CartDropdown cartItems={cartItems} toggleCartHidden={toggleCartHidden}/>
-                      )
+                      ({data:cartItems}) => {
+                        console.log(cartItems);
+                        return (
+
+                          <CartDropdown cartItems={cartItems.cartItems} toggleCartHidden={toggleCartHidden}/>
+                      );}
                   }
               </Query>
           )
